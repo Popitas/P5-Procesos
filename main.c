@@ -4,16 +4,10 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <errno.h>
-#include <stdbool.h>
-#include <getopt.h>
-
-bool rMode = false;
-bool qMode = false;
 
 void copyFiles(int argsLength, char *args[]);
 
 int main(int argc, char *argv[]) {
-    if (rMode)
     copyFiles(argc, argv);
     return 0;
 }
@@ -34,29 +28,4 @@ void copyFiles(int argsLength, char *args[]) {
             exit(0);
         }
     }
-}
-
-int enabledModes(int argc, char *argv[]){
-    extern char *optarg;
-    extern int optind;
-    int c = 0, counter = 0;
-
-    while ((c = getopt(argc, argv, "qr")) != -1){
-        switch (c) {
-            case 'q':
-                counter++;
-                qMode = true;
-                printf("****(!) Mensajes de error de hilos inhabilitado.\n");
-                break;
-            case 'r':
-                counter++;
-                rMode = true;
-                printf("****(!) Habilitado el reintento si hay fallos.\n");
-                break;
-            default:
-                break;
-        }
-    }
-
-    return counter;
 }
